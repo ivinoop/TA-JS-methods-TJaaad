@@ -11,14 +11,11 @@ let words = [
 
 // - Write a function findLongestWord that takes an array of words and returns the longest word from the array. (Use above array "words" to test it). If there are 2 with the same length, it should return the first occurrence.
 
-function findLongestWord (a,b) {
-  let result = a.length - b.length;
-  return result; 
+function findLongestWord (array) {
+  return [...array].sort((a,b) => a.length - b.length).pop(); 
 }
 
-let newWords = [...words];
-newWords.sort(findLongestWord);
-console.log(newWords.pop());
+findLongestWord(words);
 
 // - Convert the above array "words" into an array of length of word instead of word.
 
@@ -26,52 +23,44 @@ let wordsLength = words.map((word) => word.length);
 
 // - Create a new array that only contains word with atleast one vowel.
 
-let oneVowel = words.filter(vowel => {
-  if (
-    vowel.toLowerCase().includes("a") || 
-    vowel.toLowerCase().includes("e") || 
-    vowel.toLowerCase().includes("i") || 
-    vowel.toLowerCase().includes("o") || 
-    vowel.toLowerCase().includes("u") 
-  ) {
-    return vowel;
-  }
-});
+function checkVowel(words) {
+  return (
+    words.toLowerCase().includes("a") || 
+    words.toLowerCase().includes("e") || 
+    words.toLowerCase().includes("i") || 
+    words.toLowerCase().includes("o") || 
+    words.toLowerCase().includes("u")
+  );
+}
+let vowelFilter = words.filter((w) => checkVowel(w));
+  
 
 // - Find the index of the word "rhythm"
 
-console.log(words.indexOf('rhythm'));
+console.log(words.findIndex((w) => w === 'rhythm'));
 
 // - Create a new array that contains words not starting with vowel.
 
-function isVowel () {
-  words.filter(isVowel => {
-    if (
-      isVowel.toLowerCase().includes("a") || 
-      isVowel.toLowerCase().includes("e") || 
-      isVowel.toLowerCase().includes("i") || 
-      isVowel.toLowerCase().includes("o") || 
-      isVowel.toLowerCase().includes("u") 
-    ) {
-      return isVowel;
-    }
-  });
-}
-
-let notVowel = words.filter(isNotVowel => {
-  if(
-    isNotVowel !== isVowel()) {
-      return isNotVowel;
-    }
-});
+let notWithVowel = words.filter (
+  (w) => !checkVowel(w[0])
+);
 
 // - Create a new array that contains words not ending with vowel
+
+let notEndingWithVowel = words.filter (
+  (w) => !checkVowel(w[w.length - 1])
+);
 
 let numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
 
 // - Create a sumArray function that takes an array of number as a parameter, and calculate the sum of all its numbers
 
-
+function sumArray(array) {
+  return array.reduce ((acc, cv) => {
+    acc = acc + cv;
+    return acc;
+  }, 0);
+}
 
 // - Make a new array that contains number multiplied by 3 like [6, 18, 27 ...]
 
@@ -93,13 +82,9 @@ let oddNumbers = numbers.filter(oddNum => {
 
 // - Create a new array that should have true for even number and false for odd numbers.
 
-let trueFalseArr = numbers.filter(truefalse => {
-  if(truefalse % 2 === 0) {
-    return "true";
-  } else {
-    return "false";
-  }
-})
+let trueFalseArr = numbers.map((truefalse) => 
+  truefalse % 2 === 0
+);
 
 // - Sort the above number in assending order.
 
@@ -114,18 +99,17 @@ let ascArr = [...numbers].sort((a,b) => {
 // - Find the sum of the numbers in the array.
 
 let sumArr = numbers.reduce((acc, num) => {
-  return acc + num;
+  acc = acc + num;
+  return acc;
 },0);
 
 //- Write a function averageNumbers that receives an array of numbers and calculate the average of the numbers
 
-function averageNumbers (numbers) {
-  let sum = 0, avg = 0;
-  for(let num of numbers) {
-    sum += num;
-    avg = sum/(numbers.length);
-  }
-  return avg;
+function averageNumbers (array) {
+  return array.reduce((acc, cv) => {
+    acc = acc + cv;
+    return acc;
+  },0) / array.length;
 }
 
 let strings = [
@@ -142,3 +126,11 @@ let strings = [
 ];
 
 // - Write a function averageWordLength that receives an array of words2 and calculate the average length of the words.
+
+function averageWordLength (words) {
+  return (
+    words.map (w => w.length).reduce((acc,cv) => {
+    acc = acc + cv;
+    return acc;
+  },0) / words.length);
+}

@@ -110,7 +110,14 @@ Output:
 {banana: 2, cherry: 3, orange: 3, apple: 2, fig: 1}
 */
 
-
+let fruitsObj = fruitBasket.reduce((acc, cv) =>{
+  if(acc[cv]) {
+    acc[cv] = acc[cv] + 1;
+  } else {
+    acc[cv] = 1;
+  }
+  return acc;
+}, {});
 
 /* 
 
@@ -122,6 +129,12 @@ Output:
 [['banana', 2], ['cherry', 3], ['orange', 3], ['apple', 2], ['fig', 1]]
 */
 
+let fruitsArray = Object.keys(fruitsObj)
+.reduce((acc,cv) => {
+  acc = acc.concat([[cv, fruitsObj[cv]]]);
+  return acc;
+},[]);
+
 const data = [
   [1, 2, 3],
   [4, 5, 6],
@@ -131,6 +144,11 @@ const data = [
 
 // Using reduce flat data array
 
+data.reduce((acc, cv) => {
+  acc = acc.concat(cv);
+  return acc; 
+}, []);
+
 const dataTwo = [
   [1, 2, 3],
   [4, 5, 6],
@@ -139,6 +157,11 @@ const dataTwo = [
 ];
 
 // Using reduce flat dataTwo array
+
+dataTwo.reduce((acc, cv) => {
+  acc = acc.concat(cv.flat(Infinity));
+  return acc; 
+}, []);
 
 /*
 
@@ -161,6 +184,22 @@ let pipeline = [
   increment,
 ];
 
+function increment(num) {
+  return num + 1;
+}
+function double(num) {
+  return num * 2;
+}
+function decrement(num) {
+  return num - 1;
+}
+function triple(num) {
+  return num * 3;
+}
+function half(num) {
+  return Math.round(num / 2);
+}
+
 /*
 Using the pipeline variable that contains the collection of functions, taking the initial value 3 find the output.
 
@@ -174,6 +213,11 @@ EXAMPLE:
 
   ...
 */
+
+pipeline.reduce((acc,cv) => {
+  acc = cv(acc);
+  return acc;
+}, 3);
 
 let pipeline2 = [
   increment,
@@ -190,3 +234,9 @@ let pipeline2 = [
 ];
 
 // Find the output using pipeline2 the initial value if 8
+
+
+pipeline2.reduce((acc,cv) => {
+  acc = cv(acc);
+  return acc;
+}, 8);

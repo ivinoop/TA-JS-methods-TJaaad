@@ -13,21 +13,79 @@ let persons = [
   { name: 'Arya', grade: 14, sex: 'F' },
 ];
 
-// NOTE: Use reduce method whereever you can to solve this exercise:
+// NOTE: Use reduce method wherever you can to solve this exercise:
 
 // Find the average grade
 
+let allGrade = persons.map(g => g.grade);
+let gradeSum = allGrade.reduce((acc,cv) => {
+  return acc + cv;
+},0);
+let avg = gradeSum / persons.length;
+
 // Find the average grade of male
+
+let maleGrade = [];
+persons.map(m => {
+  if(m.sex === 'M') {
+    maleGrade.push(m.grade);
+  }
+});
+
+let maleGradeSum = maleGrade.reduce((acc,cv) => {
+  return acc + cv;
+},0);
+
+let maleAvg = maleGradeSum / maleGrade.length;
 
 // Find the average grade of female
 
+let femaleGrade = [];
+persons.map(f => {
+  if(f.sex === 'F') {
+    femaleGrade.push(f.grade);
+  }
+});
+
+let femaleGradeSum = femaleGrade.reduce((acc,cv) => {
+  return acc + cv;
+},0);
+
+let femaleAvg = femaleGradeSum / femaleGrade.length;
+
 // Find the highest grade
+
+let highestGrade = [...allGrade].sort((a,b) =>{
+  return a-b;
+});
+
+console.log(highestGrade.pop());
 
 // Find the highest grade in male
 
+let highestMaleGrade = [...maleGrade].sort((a,b) =>{
+  return a-b;
+});
+
+console.log(highestMaleGrade.pop());
+
 // Find the highest grade in female
 
+let highestFemaleGrade = [...femaleGrade].sort((a,b) =>{
+  return a-b;
+});
+
+console.log(highestFemaleGrade.pop());
+
 // Find the highest grade for people whose name starts with 'J' or 'P'
+
+let nameWithJorP = persons.filter(n =>
+  n.name.startsWith('J') || n.name.startsWith('P')
+);
+
+let allGradeJorP = [...nameWithJorP].map(ele => ele.grade);
+
+let highestGradeJorP = [...allGradeJorP].sort((a,b) => a-b).pop();
 
 const fruitBasket = [
   'banana',
@@ -51,6 +109,8 @@ that fruit has appeared in the array. Store it in new variable fruitsObj
 Output: 
 {banana: 2, cherry: 3, orange: 3, apple: 2, fig: 1}
 */
+
+
 
 /* 
 
